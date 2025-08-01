@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Todo DashBoard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body class="bg-dark  d-flex justify-content-center align-items-center " style="height: 100vh;">
+    <div class="w-50 text-dark bg-white border text-center shadow-lg rounded">
+        <h1 class="py-2">ToDo List !!!</h1>
+
+        <!-- result -->
+        <h1 id="result" class="pb-3" >
+
+
+        </h1>
+        <div class="pb-3">
+             <button onclick="toDo()" class=" btn btn-success">Click Here</button>
+        </div>
+       
+    </div>
+
+  
+
+</body>
+<script>
+  const  toDo=()=>{
+        const api = new XMLHttpRequest()
+        api.open("GET","https://dummyjson.com/todos")
+       
+        api.send(api)
+        api.onreadystatechange=()=>{
+            console.log(api.readyState);
+            if (api.readyState==4) {
+                if (api.status>=200 && api.status<300) {
+                    //console.log(api.responseText);
+                    const response = JSON.parse(api.responseText)
+                    console.log(response);
+                    const allTodos= response.todos
+                    console.log(allTodos);
+                    const randomTodo = Math.floor(Math.random()*allTodos.length)
+                    console.log(randomTodo);
+                    const displayTodo = allTodos[randomTodo]
+                    result.innerHTML =`
+
+                     
+                    <h1 class="text-light"></h1>
+                    <p class="fw-bolder text-success fs-1">${displayTodo.todo}</p>
+                    <p class="text-danger float-right"> ${"user id is :"} ${displayTodo.userId}</p>
+                
+
+                    
+                    `
+                    
+                }else{
+                    console.log("api is not between 200 and 300");
+                    
+                }
+                
+            }else{
+                console.log("ready state is not 4");
+                
+            }
+            
+
+        }
+         
+
+    }
+</script>
+</html>

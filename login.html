@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Todo Login Page</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body style="background-image: url('https://cdn.pixabay.com/photo/2018/10/12/21/09/grass-3743023_1280.jpg'); background-size: cover; background-position: center; height: 100vh;" class="d-flex justify-content-center align-items-center">
+
+  <div class="bg-white shadow p-4 rounded w-25" style="min-height:300px;">
+    <h2 class="text-center mb-4">User Login !!!</h2>
+    <form onsubmit="return false;">
+      <div class="mb-3">
+        <label class="form-label">Username</label>
+        <input id="loginUsername" type="text" class="form-control" required />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Password</label>
+        <input id="loginPassword" type="password" class="form-control" required />
+      </div>
+      <button onclick="loginUser()" type="button" class="btn btn-success w-100">Login</button>
+      <a href="./signup.html"><p class="text-center pt-3">Signup here</p></a>
+      <p id="loginMessage" class="text-danger text-center pt-2"></p>
+    </form>
+  </div>
+
+  <script>
+    function loginUser() {
+      const username = document.getElementById('loginUsername').value.trim();
+      const password = document.getElementById('loginPassword').value.trim();
+
+      const storedUsername = localStorage.getItem('username');
+      const storedPassword = localStorage.getItem('password');
+
+      const message = document.getElementById('loginMessage');
+
+      if (username === storedUsername && password === storedPassword) {
+        message.classList.remove('text-danger');
+        message.classList.add('text-success');
+        message.textContent = "Login successful! Redirecting...";
+
+        setTimeout(() => {
+          window.location.href = "todo.html";
+        }, 2000);
+      } else {
+        message.classList.remove('text-success');
+        message.classList.add('text-danger');
+        message.textContent = "Please register to login!";
+      }
+    }
+  </script>
+</body>
+</html>
